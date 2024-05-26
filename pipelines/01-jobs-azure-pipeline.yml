@@ -11,7 +11,7 @@ pool:
 
 # *Pipelines > Stages > Jobs > *Tasks(Steps)
 # Jobs: They could execute parallely in distinct agents
-
+# Fan-in fan-out pattern jobs
 jobs:
 - job: Job1
   steps:
@@ -29,7 +29,15 @@ jobs:
     displayName: 'Run a one-line script'
 
 - job: Job3
-  dependsOn: Job2
+  dependsOn: Job1
   steps:
   - script: echo Job3 - Hello, world!
+    displayName: 'Run a one-line script'
+
+- job: Job4
+  dependsOn:
+  - Job2
+  - Job3
+  steps:
+  - script: echo Job4 - Hello, world!
     displayName: 'Run a one-line script'
