@@ -1,6 +1,6 @@
 ## Currency Exchange Micro Service - H2
 
-**Run com.in28minutes.microservices.currencyconversionservice.CurrencyConversionServiceApplicationH2 as a Java Application.**
+**Currency Exchange Microservice with Kubernetes and Terraform.**
 
 ### Resources
 
@@ -52,5 +52,5 @@ mvn package
 
 #### Running Container
 ``` bash
-docker container run --publish 8000:8000 in28min/currency-exchange:0.0.1-SNAPSHOT
+docker run --publish 8000:8000 pauloricardobusch/currency-exchange:0.0.1-SNAPSHOT
 ```
