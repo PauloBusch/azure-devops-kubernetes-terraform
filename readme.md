@@ -101,8 +101,8 @@ ls /Users/rangakaranam/.ssh/id_rsa.pub
 
 #### Create Resource Group, Storage Account and Storage Container
 ``` bash
-az group create -l westeurope -n K8sResourceGroup
-az storage account create -n K8sStorageAccount -g K8sResourceGroup -l westeurope --sku Standard_LRS
+az group create -l eastus -n K8sResourceGroup
+az storage account create -n K8sStorageAccount -g K8sResourceGroup -l eastus --sku Standard_LRS
 az storage container create -n devterraformstatestorage --account-name <<storage_account_name>> --account-key <<storage_account_key>>
 ```
 
