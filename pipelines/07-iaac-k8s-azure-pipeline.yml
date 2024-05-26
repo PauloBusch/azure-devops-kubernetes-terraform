@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+- none
 
 pool:
   vmImage: ubuntu-latest
@@ -33,7 +33,7 @@ steps:
 
 - task: TerraformCLI@2
   inputs:
-    command: 'apply'
+    command: '$(command)' # apply | destroy
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/azure/terraform'
     environmentServiceName: 'azure-resource-manager-service-connection'
     commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
