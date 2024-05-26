@@ -1,4 +1,4 @@
-package com.in28minutes.microservices.currencyexchangeservice.util.environment;
+package com.paulobusch.microservices.currencyexchangeservice.util.environment;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
