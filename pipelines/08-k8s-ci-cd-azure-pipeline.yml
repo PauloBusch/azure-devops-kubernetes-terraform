@@ -14,7 +14,7 @@ variables:
 stages:
 - stage: Build
   jobs:
-  - job: Build
+  - job: BuildJob
     pool:
       vmImage: ubuntu-latest
     steps:
@@ -26,17 +26,24 @@ stages:
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
+    - task: CopyFiles@2
+      displayName: Copy deployment files
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: |
+          **/*.yaml
+          **/*.tf
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
     - task: PublishBuildArtifacts@1
-      displayName: Publish the K8s Files
+      displayName: Publish the K8s files
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'manifests'
         publishLocation: 'Container'
 
 - stage: Deploy
-  displayName: Deploy to K8s
   jobs:
-  - job: Deploy
+  - job: DeployJob
     pool:
       vmImage: ubuntu-latest
     steps:
