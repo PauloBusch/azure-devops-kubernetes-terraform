@@ -4,7 +4,7 @@
 
 terraform {
   backend "s3" {
-    bucket = "mybucket" # Will be overridden from build
+    bucket = "terraform-backend-state-pbusch-123" # Will be overridden from build
     key    = "path/to/my/key" # Will be overridden from build
     region = "us-east-1"
   }
@@ -14,9 +14,9 @@ resource "aws_default_vpc" "default" {
 
 }
 
-data "aws_subnet_ids" "subnets" {
-  vpc_id = aws_default_vpc.default.id
-}
+# data "aws_subnet_ids" "subnets" {
+#   vpc_id = aws_default_vpc.default.id
+# }
 
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint
@@ -28,21 +28,41 @@ provider "kubernetes" {
 module "paulobusch-cluster" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "paulobusch-cluster"
-  cluster_version = "1.14"
-  subnets         = ["subnet-01ae7e14dafdb96a1", "subnet-06056b07b4524bdf9"] #CHANGE
-  #subnets = data.aws_subnet_ids.subnets.ids
+
+  subnet_ids         = ["subnet-01ae7e14dafdb96a1", "subnet-06056b07b4524bdf9"] #CHANGE
+  #subnet_ids = data.aws_subnet_ids.subnets.ids
+  
   vpc_id          = aws_default_vpc.default.id
-
   #vpc_id         = "vpc-1234556abcdef"
+}
 
-  node_groups = [
-    {
-      instance_type = "t2.micro"
-      max_capacity  = 5
-      desired_capacity = 3
-      min_capacity  = 3
-    }
-  ]
+resource "aws_iam_role" "iam-role" {
+  name = "eks-node-group-example"
+
+  assume_role_policy = jsonencode({
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = {
+        Service = "ec2.amazonaws.com"
+      }
+    }]
+    Version = "2012-10-17"
+  })
+}
+
+resource "aws_eks_node_group" "node-group" {
+  cluster_name  = module.paulobusch-cluster.cluster_id
+  node_group_name = "paulobusch-node-group"
+  node_role_arn  = aws_iam_role.iam-role.arn
+  subnet_ids         = ["subnet-01ae7e14dafdb96a1", "subnet-06056b07b4524bdf9"] #CHANGE
+  instance_types = ["t2.micro"] ## specify instance type as per your requirement
+ 
+  scaling_config {
+    desired_size = 3
+    max_size   = 5
+    min_size   = 1
+  }
 }
 
 data "aws_eks_cluster" "cluster" {
@@ -53,8 +73,7 @@ data "aws_eks_cluster_auth" "cluster" {
   name = module.paulobusch-cluster.cluster_id
 }
 
-
-# We will use ServiceAccount to connect to K8S Cluster in CI/CD mode
+# We will use ServiceAccount to connect to EKS Cluster in CI/CD mode
 # ServiceAccount needs permissions to create deployments 
 # and services in default namespace
 resource "kubernetes_cluster_role_binding" "example" {

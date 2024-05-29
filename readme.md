@@ -74,7 +74,7 @@ az aks get-credentials --name <<MyManagedCluster>> --resource-group <<MyResource
 ---
 ``` bash
 aws configure
-aws eks --region us-east-1 update-kubeconfig --name k8s-cluster 
+aws eks --region us-east-1 update-kubeconfig --name eks-cluster
 kubectl get pods
 kubectl get svc
 kubectl get serviceaccounts

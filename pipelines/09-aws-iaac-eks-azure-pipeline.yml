@@ -22,6 +22,6 @@ steps:
 - task: TerraformTaskV4@4
   inputs:
     provider: 'aws'
-    command: 'apply'
+    command: '$(command)' # apply | destroy
     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
     environmentServiceNameAWS: 'aws-for-terraform'
