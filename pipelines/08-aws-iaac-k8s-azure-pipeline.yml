@@ -10,9 +10,6 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
 - task: TerraformTaskV4@4
   inputs:
     provider: 'aws'
@@ -21,3 +18,10 @@ steps:
     backendServiceAWS: 'aws-for-terraform'
     backendAWSBucketName: 'terraform-backend-state-pbusch-123'
     backendAWSKey: 'kubernetes-dev.tfstate'
+
+- task: TerraformTaskV4@4
+  inputs:
+    provider: 'aws'
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/aws'
+    environmentServiceNameAWS: 'aws-for-terraform'
