@@ -1,9 +1,6 @@
 # aws --version
 # aws eks --region us-east-1 update-kubeconfig --name paulobusch-cluster
 # Uses default VPC and Subnet. Create Your Own VPC and Private Subnets for Prod Usage.
-# terraform-backend-state-paulobusch-123
-# AKIA4AHVNOD7OOO6T4KI
-
 
 terraform {
   backend "s3" {
@@ -32,7 +29,7 @@ module "paulobusch-cluster" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "paulobusch-cluster"
   cluster_version = "1.14"
-  subnets         = ["subnet-3f7b2563", "subnet-4a7d6a45"] #CHANGE
+  subnets         = ["subnet-01ae7e14dafdb96a1", "subnet-06056b07b4524bdf9"] #CHANGE
   #subnets = data.aws_subnet_ids.subnets.ids
   vpc_id          = aws_default_vpc.default.id
 
