@@ -2,6 +2,13 @@
 
 **Currency Exchange Microservice with Kubernetes and Terraform.**
 
+### Summary
+ - [Resources](#resources), [H2 Console](#h2-Console)
+ - [Notes](#notes) > [Tables Created](#tables-created), [Containerization](#containerization), [Jenkins](#jenkins)
+ - [Azure Kubernetes Cluster](#azure-kubernetes-cluster)
+ - [AWS EKS Kubernetes Cluster](#aws-eks-kubernetes-cluster)
+ - [Manually setting up from local machine](#manually-setting-up-from-local-machine)
+
 ### Resources
 - http://localhost:8000/currency-exchange/from/USD/to/INR
 
