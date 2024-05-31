@@ -1,8 +1,32 @@
-node {
-	stage('Build') {
-		echo "Build"
+// SCRIPTED
+// node { stage('Build') {} }
+// node { echo "Build" }
+
+// DECLARATIVE
+pipeline {
+	agent any
+	stages {
+		stage('Build') {
+			steps {
+				echo "Build"
+			}
+		}
+		stage('Test') {
+			steps {
+				echo "Test"
+			}
+		}
 	}
-	stage('Test') {
-		echo "Test"
+	
+	post {
+		always {
+			echo "Execute always"
+		}
+		success {
+			echo "Executed with success"
+		}
+		failure {
+			echo "Executed with error"
+		}
 	}
 }
