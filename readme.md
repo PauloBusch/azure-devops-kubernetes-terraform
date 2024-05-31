@@ -50,6 +50,24 @@ mvn package
 docker run --publish 8000:8000 pauloricardobusch/currency-exchange:0.0.1-SNAPSHOT
 ```
 
+### Jenkins
+#### Building Container
+``` bash
+docker build -t myjenkins-blueocean:2.452.1-1 -f jenkins/Dockerfile .
+```
+
+#### Running Container
+``` bash
+docker run --name jenkins-blueocean --restart=on-failure ^
+  --network jenkins --env DOCKER_HOST=tcp://docker:2376 ^
+  --env DOCKER_CERT_PATH=/certs/client --env DOCKER_TLS_VERIFY=1 ^
+  --volume jenkins-data:/var/jenkins_home ^
+  --volume jenkins-docker-certs:/certs/client:ro ^
+  --publish 8081:8080 --publish 50000:50000 myjenkins-blueocean:2.452.1-1
+```
+
+After container initialization, the default password will be logged in the console, copy it and access [http://localhost:8081](http://localhost:8081) to start using Jenkins. 
+
 ### Azure Kubernetes Cluster
 ---
 Pre-requisites
