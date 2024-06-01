@@ -1,22 +1,22 @@
 // SCRIPTED
-// node { stage('Build') {} }
+// node { stage("Build") {} }
 // node { echo "Build" }
 
 // DECLARATIVE
 pipeline {
-	agent { docker { image 'maven:3.9.7' } }
+	agent { docker { image "maven:3.9.7" } }
 	environment {
-		dockerHome = tool 'myDocker'
-		mavenHome = tool 'myMaven'
+		dockerHome = tool "myDocker"
+		mavenHome = tool "myMaven"
 		PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
 	}
 
 	stages {
-		stage('Checkout') {
+		stage("Checkout") {
 			steps {
 				echo "Checkout"
-				sh 'mvn --version'
-				sh 'docker --version'
+				sh "mvn --version"
+				sh "docker version"
 				echo "PATH: $PATH"
 				echo "BUILD_NUMBER: $env.BUILD_NUMBER"
 				echo "BUILD_ID: $env.BUILD_ID"
@@ -26,19 +26,19 @@ pipeline {
 			}
 		}
 
-		stage('Compile') {
+		stage("Compile") {
 			steps {
 				sh "mvn clean compile"
 			}
 		}
 
-		stage('Unit Tests') {
+		stage("Unit Tests") {
 			steps {
 				sh "mvn test"
 			}
 		}
 
-		stage('Integration Tests') {
+		stage("Integration Tests") {
 			steps {
 				sh "mvn failsafe:integration-test failsafe:verify"
 			}
