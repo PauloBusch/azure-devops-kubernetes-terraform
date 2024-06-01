@@ -58,12 +58,28 @@ docker run --publish 8000:8000 pauloricardobusch/currency-exchange:0.0.1-SNAPSHO
 ```
 
 ### Jenkins
-#### Building Container
+#### Creating Network
+``` bash
+docker network create jenkins
+```
+
+#### Running Docker in Docker (DinD) Container
+``` bash
+docker run --name jenkins-docker --rm --detach ^
+  --privileged --network jenkins --network-alias docker ^
+  --env DOCKER_TLS_CERTDIR=/certs ^
+  --volume jenkins-docker-certs:/certs/client ^
+  --volume jenkins-data:/var/jenkins_home ^
+  --publish 2376:2376 ^
+  docker:dind
+```
+
+#### Building Jenkins Image
 ``` bash
 docker build -t myjenkins-blueocean:2.452.1-1 -f jenkins/Dockerfile .
 ```
 
-#### Running Container
+#### Running Jenkins Container
 ``` bash
 docker run --name jenkins-blueocean --restart=on-failure ^
   --network jenkins --env DOCKER_HOST=tcp://docker:2376 ^
