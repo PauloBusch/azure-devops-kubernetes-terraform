@@ -1,6 +1,6 @@
 ## Currency Exchange Micro Service - H2
 
-**Currency Exchange Microservice with Kubernetes and Terraform.**
+**Currency Exchange Microservice with Kubernetes, Terraform and Jenkins.**
 
 ### Summary
  - [Resources](#resources), [H2 Console](#h2-Console)
