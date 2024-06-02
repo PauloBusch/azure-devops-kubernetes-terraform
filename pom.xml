@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.paulobusch.microservices</groupId>
-	<artifactId>currency-exchange-basic</artifactId>
+	<artifactId>currency-exchange-microservice</artifactId>
 	<version>0.0.1-RELEASE</version> 
 	<packaging>jar</packaging>
 	<name>currency-exchange</name>
@@ -135,6 +135,11 @@
 			<artifactId>rest-assured</artifactId>
 			<version>4.1.2</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy</artifactId>
+			<version>3.0.8</version>
 		</dependency>
 	</dependencies>
 
