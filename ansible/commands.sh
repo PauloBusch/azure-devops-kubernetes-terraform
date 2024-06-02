@@ -8,3 +8,4 @@ ansible-playbook playbooks/01-ping.yml
 ansible-playbook playbooks/02-shell.yml
 ansible-playbook playbooks/03-variables.yml
 ansible-playbook playbooks/03-variables.yml -e variable1=CLI_Value
+ansible-playbook playbooks/04-facts.yml
