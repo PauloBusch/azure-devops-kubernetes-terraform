@@ -10,6 +10,7 @@ ansible-playbook playbooks/03-variables.yml
 ansible-playbook playbooks/03-variables.yml -e variable1=CLI_Value
 ansible-playbook playbooks/04-facts.yml
 ansible-playbook playbooks/05-install-apache.yml
+ansible-playbook playbooks/07-conditions-and-loops.yml
 
 # Multiple playbooks
 ansible-playbook playbooks/06-multiple-playbooks.yml

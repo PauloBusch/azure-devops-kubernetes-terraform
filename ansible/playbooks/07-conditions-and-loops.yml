@@ -1,0 +1,30 @@
+---
+- hosts: qa
+  vars:
+    system: "Linux"
+    color: "Red"
+  tasks:
+    - debug: variable=hostvars
+    - debug: variable=ansible_system
+    - debug: variable=color
+    
+    # Condition
+      when: system == "Linux"
+    
+    # Simple loop
+    - debug: variable=item
+      with_items:
+      - item1
+      - item2
+      - item3
+      - item4
+
+    # Object array loop
+    - debug: variable=item.name
+      with_items:
+      - name: Ranga
+        country: India
+      - name: Jane
+        country: US
+      - name: Does
+        country: Netherlands
