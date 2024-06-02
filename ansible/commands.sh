@@ -12,6 +12,7 @@ ansible-playbook playbooks/04-facts.yml
 ansible-playbook playbooks/05-install-apache.yml
 ansible-playbook playbooks/07-conditions-and-loops.yml
 ansible-playbook playbooks/08-dynamic-inventory-ping.yml
+ansible-playbook playbooks/09-create-ec2.yml
 
 # Multiple playbooks
 ansible-playbook playbooks/06-multiple-playbooks.yml
