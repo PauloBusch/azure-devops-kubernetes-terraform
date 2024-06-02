@@ -1,0 +1,7 @@
+---
+- hosts: qa
+  tasks:
+    - name: Execute Shell Commands
+      shell: uname
+      register: uname_result
+    - debug: message="{{uname_result.stdout}}"

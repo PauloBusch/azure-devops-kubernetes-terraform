@@ -3,5 +3,6 @@ ansible qa -a "python --version"
 ansible groupofgroups -a "python --version"
 ansible devsubset -a "python --version"
 
-# Execute ping playbook
+# Execute playbooks
 ansible-playbook playbooks/01-ping.yml
+ansible-playbook playbooks/02-shell.yml
