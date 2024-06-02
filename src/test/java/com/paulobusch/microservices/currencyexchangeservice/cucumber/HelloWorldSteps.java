@@ -8,28 +8,24 @@ import org.junit.Assert;
 import com.paulobusch.microservices.currencyexchangeservice.HelloWorld;
 
 public class HelloWorldSteps {
-
     private HelloWorld helloWorld = new HelloWorld();
-
-
-    private String name = "";
-
     private String output = "";
+    private String name = "";
 
     @Given("^A String name (.*)$")
     public void givenInput(String name) {
         this.name = name;
     }
+
     @When("^sayHello method of HelloWorld.java is called$")
     public void whenBusinessLogicCalled() {
         output = helloWorld.sayHello(name);
     }
+
     @Then("^It should return (.*)$")
     public void thenCheckOutput(String response) {
         Assert.assertEquals(output, response);
     }
 
-
-    public static void main(String[] args) {
-    }
+    public static void main(String[] args) {}
 }
